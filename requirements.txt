@@ -11,8 +11,8 @@ Flask-Sockets==0.2.1
 Flask-SQLAlchemy==2.4.4
 gevent==21.12.0
 greenlet==1.1.3
-graphql-core>=2.1,<3   # Add version constraint for graphql-core
-graphql-relay==3.0.0
+graphql-core<3,>=2.1
+graphql-relay<3
 graphql-server-core==1.2.0
 Jinja2>=3.0
 MarkupSafe>=2.0
