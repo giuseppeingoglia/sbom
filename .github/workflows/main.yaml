@@ -57,3 +57,9 @@ jobs:
           AQUA_URL: ${{ env.AQUA_URL }}
           CSPM_URL: ${{ env.CSPM_URL }}
           TRIVY_RUN_AS_PLUGIN: "aqua"
+          
+      - name: Tag Docker image
+        run: docker tag my-flask-app:${{ github.sha }} pitonemaledetto/sbom:${{ github.sha }}
+
+      - name: Push Docker image to Docker Hub
+        run: docker push pitonemaledetto/sbom:${{ github.sha }}
