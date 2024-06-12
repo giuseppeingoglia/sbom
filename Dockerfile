@@ -10,7 +10,7 @@ WORKDIR /app
 
 # Install system dependencies
 RUN apt-get update \
-    && apt-get install -y gcc libpq-dev build-essential libffi-dev \
+    && apt-get install -y build-essential libevent-dev libffi-dev python3-dev \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
 
@@ -19,7 +19,7 @@ COPY requirements.txt .
 
 # Install Python dependencies
 RUN pip install --upgrade pip \
-    && pip install --prefer-binary -r requirements.txt
+    && pip install --prefer-binary --no-cache-dir -r requirements.txt
 
 # Copy the rest of the application code to the container
 COPY . .
