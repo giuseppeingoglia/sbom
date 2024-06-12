@@ -1,1 +1,51 @@
-###
+#triggering
+name: Build & Test
+
+on:
+  #push:
+  pull_request:
+
+env:
+  CSPM_URL: https://eu-1.api.cloudsploit.com
+  AQUA_URL: https://api.eu-1.supply-chain.cloud.aquasec.com
+
+jobs:
+  test:
+    runs-on: ubuntu-20.04
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Manifest Generation
+        run: |
+          export BILLY_SERVER=https://billy.eu-1.codesec.aquasec.com
+          curl -sLo install.sh download.codesec.aquasec.com/billy/install.sh
+          curl -sLo install.sh.checksum https://github.com/argonsecurity/releases/releases/latest/download/install.sh.checksum
+          if ! cat install.sh.checksum | sha256sum -c ; then
+            echo "install.sh checksum failed"
+            exit 1
+          fi
+          BINDIR="." sh install.sh
+          rm install.sh install.sh.checksum
+          ./billy generate \
+            --access-token "${{ secrets.GITHUB_TOKEN }}" \
+            --aqua-key "${{ secrets.AQUA_KEY }}" \
+            --aqua-secret "${{ secrets.AQUA_SECRET }}" \
+            --cspm-url "${{ env.CSPM_URL }}" \
+            --artifact-path "${{ github.workspace }}"
+        env:
+          CSPM_URL: ${{ env.CSPM_URL }}
+          AQUA_URL: ${{ env.AQUA_URL }}
+
+      - name: Run Aqua scanner
+        uses: docker://aquasec/aqua-scanner
+        with:
+          args: trivy fs --scanners config,vuln,secret .
+        env:
+          AQUA_KEY: ${{ secrets.AQUA_KEY }}
+          AQUA_SECRET: ${{ secrets.AQUA_SECRET }}
+          GITHUB_TOKEN: ${{ github.token }}
+          AQUA_URL: ${{ env.AQUA_URL }}
+          CSPM_URL: ${{ env.CSPM_URL }}
+          TRIVY_RUN_AS_PLUGIN: "aqua"
