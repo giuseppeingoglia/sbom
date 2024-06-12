@@ -10,7 +10,7 @@ WORKDIR /app
 
 # Install system dependencies
 RUN apt-get update \
-    && apt-get install -y gcc libpq-dev build-essential \
+    && apt-get install -y gcc libpq-dev build-essential libffi-dev \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
 
