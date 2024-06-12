@@ -5,17 +5,13 @@ on:
   #push:
   pull_request:
 
-env:
-  CSPM_URL: https://eu-1.api.cloudsploit.com
-  AQUA_URL: https://api.eu-1.supply-chain.cloud.aquasec.com
-
 jobs:
   test:
     runs-on: ubuntu-20.04
 
     steps:
       - name: Checkout code
-        uses: actions/checkout@v3
+        uses: actions/checkout@v2
 
       - name: Manifest Generation
         run: |
