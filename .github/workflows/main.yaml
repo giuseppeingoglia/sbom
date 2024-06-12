@@ -45,6 +45,8 @@ jobs:
         env:
           CSPM_URL: ${{ env.CSPM_URL }}
           AQUA_URL: ${{ env.AQUA_URL }}
+          AQUA_KEY: ${{ secrets.AQUA_KEY }}
+          AQUA_SECRET: ${{ secrets.AQUA_SECRET }}
 
       - name: Run Aqua scanner
         uses: docker://aquasec/aqua-scanner
