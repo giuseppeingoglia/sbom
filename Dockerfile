@@ -13,5 +13,9 @@ RUN pip install --no-cache-dir Flask
 # Make port 5000 available to the world outside this container
 EXPOSE 5000
 
+# Add labels for author and vendor
+LABEL author="Giuseppe"
+LABEL vendor="Container Security"
+
 # Run app.py when the container launches
 CMD ["python", "app.py"]
