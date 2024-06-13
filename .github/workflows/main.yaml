@@ -47,6 +47,7 @@ jobs:
           AQUA_URL: ${{ env.AQUA_URL }}
           AQUA_KEY: ${{ secrets.AQUA_KEY }}
           AQUA_SECRET: ${{ secrets.AQUA_SECRET }}
+          GITHUB_TOKEN: ${{ github.token }}
 
       - name: Run Aqua scanner
         uses: docker://aquasec/aqua-scanner
