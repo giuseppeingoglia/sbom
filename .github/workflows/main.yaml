@@ -13,6 +13,13 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
+      - name: Pipeline Enforcer
+        uses: aquasecurity/pipeline-enforcer-action@v1.0.0
+        with:
+          aqua-key: ${{ secrets.AQUA_KEY }}
+          aqua-secret: ${{ secrets.AQUA_SECRET }}
+          access-token: ${{ secrets.GITHUB_TOKEN }}  
+          
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v3
 
