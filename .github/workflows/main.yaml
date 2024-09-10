@@ -60,7 +60,7 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: sbom
-          path: "/home/runner/work/sbom-${{ github.sha }}"
+          path: "my-flask-app:${{ github.sha }}"
 
       - name: Run Aqua scanner
         uses: docker://aquasec/aqua-scanner
