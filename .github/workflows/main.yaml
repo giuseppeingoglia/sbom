@@ -49,15 +49,14 @@ jobs:
             --aqua-secret "${{ secrets.AQUA_SECRET }}" \
             --cspm-url "${{ env.CSPM_URL }}" \
             --artifact-path "my-flask-app:${{ github.sha }}"
+          pwd
+          ls -la
         env:
           CSPM_URL: ${{ env.CSPM_URL }}
           AQUA_URL: ${{ env.AQUA_URL }}
           AQUA_KEY: ${{ secrets.AQUA_KEY }}
           AQUA_SECRET: ${{ secrets.AQUA_SECRET }}
           GITHUB_TOKEN: ${{ github.token }}
-
-      - name: List Files
-        run: ls -la    
        
       #- name: Archive Artifacts
        # uses: actions/upload-artifact@v4
