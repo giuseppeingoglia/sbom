@@ -47,7 +47,6 @@ jobs:
             --access-token "${{ secrets.GITHUB_TOKEN }}" \
             --aqua-key "${{ secrets.AQUA_KEY }}" \
             --aqua-secret "${{ secrets.AQUA_SECRET }}" \
-            --cspm-url "${{ vars.CSPM_URL }}" \
             --artifact-path "my-flask-app:${{ github.sha }}"
             ls -la /home/runner/work/sbom/sbom
             ls -la /home/runner/work/sbom/
