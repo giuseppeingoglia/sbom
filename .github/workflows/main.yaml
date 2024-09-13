@@ -47,23 +47,17 @@ jobs:
             --access-token "${{ secrets.GITHUB_TOKEN }}" \
             --aqua-key "${{ secrets.AQUA_KEY }}" \
             --aqua-secret "${{ secrets.AQUA_SECRET }}" \
-            --cspm-url "${{ env.CSPM_URL }}" \
+            --cspm-url "${{ vars.CSPM_URL }}" \
             --artifact-path "my-flask-app:${{ github.sha }}"
             ls -la /home/runner/work/sbom/sbom
             ls -la /home/runner/work/sbom/
             ls -la /home/runner/work/
-        env:
-          CSPM_URL: ${{ env.CSPM_URL }}
-          AQUA_URL: ${{ env.AQUA_URL }}
-          AQUA_KEY: ${{ secrets.AQUA_KEY }}
-          AQUA_SECRET: ${{ secrets.AQUA_SECRET }}
-          GITHUB_TOKEN: ${{ github.token }}
 
       #- name: Archive Artifacts
        # uses: actions/upload-artifact@v4
         #with:
          # name: sbom
-          #path: /home/runner/work/sbom/sbom/billy
+          #path: /home/runner/work/sbom/sbom/
 
       - name: Run Aqua scanner
         uses: docker://aquasec/aqua-scanner
@@ -73,8 +67,8 @@ jobs:
           AQUA_KEY: ${{ secrets.AQUA_KEY }}
           AQUA_SECRET: ${{ secrets.AQUA_SECRET }}
           GITHUB_TOKEN: ${{ github.token }}
-          AQUA_URL: ${{ env.AQUA_URL }}
-          CSPM_URL: ${{ env.CSPM_URL }}
+          AQUA_URL: ${{ vars.AQUA_URL }}
+          CSPM_URL: ${{ vars.CSPM_URL }}
           TRIVY_RUN_AS_PLUGIN: "aqua"
           
       - name: Tag Docker image
